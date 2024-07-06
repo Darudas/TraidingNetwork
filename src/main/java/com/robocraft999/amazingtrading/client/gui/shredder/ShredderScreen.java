@@ -14,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigInteger;
@@ -73,7 +72,7 @@ public class ShredderScreen extends AbstractContainerScreen<ShredderMenu> {
             if (!stackInSlot.isEmpty() && blockEntity.isProcessing()) {
                 // Render the text above the item
                 Component shreddingText = Component.literal("now being shredded").withStyle(ChatFormatting.GRAY);
-                drawScaledString(graphics, shreddingText, x + 108, y + 22, 0xFFFFFF, 0.5f);
+                UIHelper.drawScaledString(graphics, font, shreddingText, x + 108, y + 22, 0xFFFFFF, 0.5f);
 
                 // Render the item and its count
                 //graphics.renderItem(stackInSlot, x + 152, y + 32);
@@ -81,17 +80,9 @@ public class ShredderScreen extends AbstractContainerScreen<ShredderMenu> {
             } else {
                 // Render the text indicating nothing is being shredded
                 Component noShreddingText = Component.literal("Nothing is being shredded").withStyle(ChatFormatting.GRAY);
-                drawScaledString(graphics, noShreddingText, x + 98, y + 22, 0xFFFFFF, 0.5f);
+                UIHelper.drawScaledString(graphics, font, noShreddingText, x + 98, y + 22, 0xFFFFFF, 0.5f);
             }
         }
-    }
-
-    private void drawScaledString(@NotNull GuiGraphics graphics, Component text, int x, int y, int color, float scale) {
-        graphics.pose().pushPose();
-        graphics.pose().translate(x, y, 0);
-        graphics.pose().scale(scale, scale, 1.0f);
-        graphics.drawString(this.font, text, 0, 0, color, false);
-        graphics.pose().popPose();
     }
 
     @Override
